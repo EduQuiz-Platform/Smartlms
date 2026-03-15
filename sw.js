@@ -11,7 +11,7 @@ const ASSETS = [
   './assets/js/teacher.js',
   './assets/js/student.js',
   './assets/js/auth.js',
-  './supabase-config.js',
+  './assets/js/supabase-config.js',
   './manifest.json',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'
 ];
