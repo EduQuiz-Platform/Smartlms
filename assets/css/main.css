@@ -6,7 +6,7 @@
   --border: #e2e8f0;
   --gradA: #667eea;
   --gradB: #764ba2;
-  --purple: #667eea;
+  --purple: #800080; /* Updated to match user reference */
   --danger: #f56565;
   --ok: #10b981;
   --warn: #f59e0b;
@@ -230,6 +230,16 @@ section h3 {
   padding: 20px;
 }
 
+.auth-container {
+  max-width: 500px;
+  margin: 10vh auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -244,24 +254,35 @@ section h3 {
   gap: 16px;
 }
 
-.small {
-  font-size: 13px;
+.small, .note {
+  font-size: 14px;
   color: var(--muted);
 }
 
-.button {
+.note a {
+  color: #4834d4;
+  text-decoration: underline;
+}
+
+.button, .role-btn {
+  display: block;
   background: var(--purple);
   color: #fff;
-  padding: 10px 16px;
-  border-radius: 6px;
+  padding: 12px 20px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   font-weight: 600;
-  transition: transform 0.1s;
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: opacity 0.2s;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-.button:hover {
-  transform: translateY(-1px);
+.button:hover, .role-btn:hover {
+  opacity: 0.9;
 }
 
 .button.secondary {
