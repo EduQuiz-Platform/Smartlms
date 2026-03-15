@@ -1,0 +1,21 @@
+{
+  "name": "SmartLMS Learning Management System",
+  "short_name": "SmartLMS",
+  "description": "A powerful and lightweight learning management system.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#6366f1",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135665.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3135/3135665.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

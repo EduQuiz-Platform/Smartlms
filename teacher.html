@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>SmartLMS — Teacher Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6366f1">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="assets/js/core.js"></script>
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="dashboard-body">
+<aside class="aside">
+  <div class="brand">
+    <div class="logo">👨‍🏫</div>
+    <span>SmartLMS Teacher</span>
+  </div>
+  <nav class="nav-side" id="teacherNav">
+    <button class="active" data-page="dashboard">📊 Dashboard</button>
+    <button data-page="courses">📚 Courses</button>
+    <button data-page="assignments">📝 Assignments</button>
+    <button data-page="grading">💯 Grading</button>
+    <button data-page="students">👥 Students</button>
+    <button data-page="discussions">💬 Discussions</button>
+    <button data-page="quizzes">🧠 Quizzes</button>
+    <button data-page="badges">🏆 Badges</button>
+  </nav>
+  <div class="footer-cta">
+    <button id="logoutBtn">🚪 Logout</button>
+  </div>
+</aside>
+
+<div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+  <header class="dashboard-header">
+    <div style="display: flex; align-items: center;">
+      <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      <div class="header-title">Teacher Dashboard</div>
+    </div>
+    <div class="header-actions">
+      <div id="maintBanner" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;text-align:center;font-size:13px;color:#333"></div>
+      <div id="notifBell">🔔</div>
+      <div id="unreadCount" style="display:none">0</div>
+      <div id="notifList"></div>
+    </div>
+  </header>
+  
+  <main style="overflow-y: auto;">
+    <div id="pageContent"></div>
+  </main>
+</div>
+
+<script src="assets/js/teacher.js"></script>
+<script>
+// Initialize
+(async function init() {
+  const user = await initDashboard('teacher');
+  if (user) {
+    await renderDashboard();
+    await requestNotificationPermission();
+  }
+})();
+</script>
+</body>
+</html>

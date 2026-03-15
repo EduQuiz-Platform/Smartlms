@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SmartLMS - Admin Dashboard</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6366f1">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="assets/js/core.js"></script>
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="dashboard-body">
+<aside class="aside">
+  <div class="brand">
+    <div class="logo">📚</div>
+    <span>SmartLMS Admin</span>
+  </div>
+  <nav class="nav-side" id="adminNav">
+    <button class="active" data-page="dashboard">📊 Dashboard</button>
+    <button data-page="resets">🔄 Password Resets</button>
+    <button data-page="users">👥 Users</button>
+    <button data-page="analytics">📈 Analytics</button>
+    <button data-page="maintenance">🛡️ System & Admin Control</button>
+  </nav>
+  <div class="footer-cta">
+    <button id="logoutBtn">🚪 Logout</button>
+  </div>
+</aside>
+
+<div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+  <header class="dashboard-header">
+    <div style="display: flex; align-items: center;">
+      <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      <div class="header-title">Admin Dashboard</div>
+    </div>
+    <div class="header-actions">
+      <div id="notifBell">🔔</div>
+      <div id="unreadCount" style="display:none">0</div>
+      <div id="notifList"></div>
+    </div>
+  </header>
+  
+  <main style="overflow-y: auto;">
+    <div id="pageContent"></div>
+  </main>
+</div>
+
+<script src="assets/js/admin.js"></script>
+<script>
+// Initialize
+(async function init() {
+  const user = await initDashboard('admin');
+  if (user) {
+    await renderDashboard();
+    await requestNotificationPermission();
+  }
+})();
+</script>
+</body>
+</html>

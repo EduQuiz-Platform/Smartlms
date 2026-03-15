@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartLMS - Auth</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6366f1">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js" defer></script>
+  <script src="assets/js/core.js" defer></script>
+  <script src="assets/js/auth.js" defer></script>
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <!-- Landing -->
+  <div id="landing" class="container" style="display:block;">
+    <div id="maintBanner" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
+    <h2>Select Role</h2>
+    <a href="#" class="role-btn" onclick="showSignup('student')">Student</a>
+    <a href="#" class="role-btn" onclick="showSignup('teacher')">Teacher</a>
+    <a href="#" class="role-btn" onclick="showSignup('admin')">Admin</a>
+    <p class="note"><a href="#" onclick="showLogin()">Already have an account? Sign in</a></p>
+  </div>
+
+  <!-- Signup -->
+  <div id="signup" class="container">
+    <div id="maintBannerSignup" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
+    <h2 id="signup-title">Sign Up</h2>
+    <form id="signupForm" novalidate>
+      <input type="text" id="fullName" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="tel" id="phone" placeholder="Phone (optional)">
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <input type="hidden" id="role">
+      <button type="submit">Create Account</button>
+      <p class="note"><a href="#" onclick="showLogin()">Already have an account? Sign in</a></p>
+    </form>
+    <p class="error" id="signupError"></p>
+  </div>
+
+  <!-- Login -->
+  <div id="login" class="container">
+    <div id="maintBannerLogin" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
+    <h2>Login</h2>
+    <form id="loginForm" novalidate>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <p class="error" id="loginEmailError"></p>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <p class="error" id="loginPasswordError"></p>
+      <button type="submit">Login</button>
+    </form>
+    <p class="note"><a href="#" onclick="showReset()">Forgot Password?</a></p>
+    <p class="note"><a href="#" onclick="showSignup()">Create account</a></p>
+  </div>
+
+  <!-- Reset Request -->
+  <div id="reset" class="container">
+    <div id="maintBannerReset" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
+    <h2>Reset Password</h2>
+    <form id="resetForm" novalidate>
+      <input type="email" id="resetEmail" placeholder="Enter your email" required>
+      <button type="submit">Request Reset</button>
+    </form>
+    <p class="note"><a href="#" onclick="showLogin()">Back to login</a></p>
+    <p class="error" id="resetError"></p>
+  </div>
+
+  <!-- Set New Password (after temp login) -->
+  <div id="newPassword" class="container">
+    <h2>Set New Password</h2>
+    <form id="newPasswordForm" novalidate>
+      <input type="password" id="newPass" placeholder="New Password" required>
+      <input type="password" id="confirmNewPass" placeholder="Confirm New Password" required>
+      <button type="submit">Update Password</button>
+    </form>
+    <p class="error" id="newPasswordError"></p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>SmartLMS — Student Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6366f1">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="assets/js/core.js"></script>
+<link rel="stylesheet" href="assets/css/main.css">
+<style>
+  .badge-student { display:inline-block; background:#eef2ff; color:var(--purple); padding:2px 8px; border-radius:999px; font-size:12px; }
+  .question-student { border:1px solid #e6e9ee; border-radius:8px; padding:10px; margin:10px 0; background:#fafafa; }
+  .q-attach-list { display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+  .q-attach-card { border:1px solid #eee; border-radius:6px; padding:8px; display:flex; gap:8px; align-items:center; background:#fff; }
+  .empty-state { border:1px dashed #e6e9ee; background:#fff; padding:14px; border-radius:8px; color:#666; text-align:center; }
+</style>
+</head>
+<body class="dashboard-body">
+<aside class="aside">
+  <div class="brand">
+    <div class="logo">🎓</div>
+    <span>SmartLMS Student</span>
+  </div>
+  <nav class="nav-side" id="studentNav">
+    <button class="active" data-page="courses">📖 Course Catalog</button>
+    <button data-page="assignments">📋 Assignments</button>
+    <button data-page="quizzes">🧠 Quizzes</button>
+    <button data-page="achievements">🏆 Achievements</button>
+    <button data-page="dashboard">🌐 Dashboard</button>
+    <button data-page="progress">📈 My Progress</button>
+    <button data-page="grades">📑 Grades</button>
+    <button data-page="calendar">🗓️ Calendar</button>
+    <button data-page="materials">📄 Course Materials</button>
+    <button data-page="discussions">💬 Discussions</button>
+    <button data-page="certificates">📜 Certificates</button>
+    <button data-page="planner">🕒 Study Planner</button>
+    <button data-page="help">❓ Help & Support</button>
+  </nav>
+  <div class="footer-cta">
+    <button id="logoutBtn">🚪 Logout</button>
+  </div>
+</aside>
+
+<div style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+  <header class="dashboard-header">
+    <div style="display: flex; align-items: center;">
+      <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      <div class="header-title">Student Dashboard</div>
+    </div>
+    <div class="header-stats" id="headerStats">
+      <div class="stat-item">📘 <span id="statCourses">0</span> Courses</div>
+      <div class="stat-item">📋 <span id="statDue">0</span> Due Soon</div>
+      <div class="stat-item">⭐ Level <span id="statLevel">13</span></div>
+      <div class="stat-item">🏆 <span id="statBadges">10</span> Badges</div>
+    </div>
+    <div class="header-actions">
+      <div id="maintBanner" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;text-align:center;font-size:13px;color:#333"></div>
+      <div id="notifBell" style="position:relative">🔔<span id="unreadCount" style="display:none">0</span></div>
+      <div id="notifList"></div>
+      <div class="profile-dropdown">
+        <img src="https://ui-avatars.com/api/?name=Student&background=random" alt="Profile" id="profileImg" style="width:30px;height:30px;border-radius:50%">
+        <span id="profileName">Profile</span> ▾
+      </div>
+    </div>
+  </header>
+  
+  <main style="overflow-y: auto;">
+    <div id="pageContent"></div>
+  </main>
+</div>
+
+<script src="assets/js/student.js"></script>
+<script>
+// Initialize
+(async function init(){ 
+  const user = await initDashboard('student');
+  if (user) {
+    await renderCourses();
+    await requestNotificationPermission();
+  }
+})();
+</script>
+</body>
+</html>
