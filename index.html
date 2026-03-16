@@ -14,7 +14,7 @@
 </head>
 <body>
   <!-- Landing -->
-  <div id="landing" class="container" style="display:block;">
+  <div id="landing" class="container auth-container" style="display:block;">
     <div id="maintBanner" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
     <h2>Select Role</h2>
     <a href="#" class="role-btn" onclick="showSignup('student')">Student</a>
@@ -24,7 +24,7 @@
   </div>
 
   <!-- Signup -->
-  <div id="signup" class="container">
+  <div id="signup" class="container auth-container">
     <div id="maintBannerSignup" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
     <h2 id="signup-title">Sign Up</h2>
     <form id="signupForm" novalidate>
@@ -41,7 +41,7 @@
   </div>
 
   <!-- Login -->
-  <div id="login" class="container">
+  <div id="login" class="container auth-container">
     <div id="maintBannerLogin" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
     <h2>Login</h2>
     <form id="loginForm" novalidate>
@@ -56,7 +56,7 @@
   </div>
 
   <!-- Reset Request -->
-  <div id="reset" class="container">
+  <div id="reset" class="container auth-container">
     <div id="maintBannerReset" style="display:none;background:#fff4c2;border:1px solid #e6e9ee;border-radius:6px;padding:6px 10px;margin-bottom:8px;text-align:center;font-size:13px"></div>
     <h2>Reset Password</h2>
     <form id="resetForm" novalidate>
@@ -68,7 +68,7 @@
   </div>
 
   <!-- Set New Password (after temp login) -->
-  <div id="newPassword" class="container">
+  <div id="newPassword" class="container auth-container">
     <h2>Set New Password</h2>
     <form id="newPasswordForm" novalidate>
       <input type="password" id="newPass" placeholder="New Password" required>
