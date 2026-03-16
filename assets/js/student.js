@@ -107,7 +107,6 @@ async function renderAssignments(){
 
   const container = document.getElementById('pageContent');
   container.innerHTML = `
-    <h2>Assignments</h2>
     <div class="card" style="padding:0; overflow-x:auto">
       <table>
         <thead>
@@ -134,39 +133,61 @@ async function renderAssignments(){
     const submission = submissions.find(s => s.assignment_id === a.id);
     const course = courses.find(c => c.id === a.course_id);
     const dueDate = new Date(a.due_date);
-    const isOverdue = dueDate.getTime() < now && !submission;
+    const isOverdue = dueDate.getTime() < now && (!submission || submission.status === 'draft');
 
     let statusHtml = '';
+    let actionsHtml = '';
+    let gradeHtml = '-';
+
     if (submission) {
-      const badgeClass = submission.status === 'graded' ? 'badge-active' : 'badge-lock';
-      statusHtml = `<span class="badge ${badgeClass}">${submission.status.toUpperCase()}</span>`;
+      if (submission.status === 'graded') {
+        statusHtml = `<span class="badge badge-submitted">Submitted</span>`;
+        const letter = getLetterGrade(submission.grade);
+        gradeHtml = `<div class="grade-text">${letter} (${submission.grade}%)</div>`;
+        actionsHtml = `
+          <button class="btn-sm-action btn-feedback" onclick="viewFeedback('${a.id}')">💬 Feedback</button>
+          <button class="btn-sm-action btn-download" onclick="alert('Downloading...')">📥 Download</button>
+        `;
+      } else if (submission.status === 'submitted') {
+        statusHtml = `<span class="badge badge-submitted">Submitted</span>`;
+        actionsHtml = `<button class="btn-sm-action btn-feedback" onclick="viewFeedback('${a.id}')">💬 Feedback</button>`;
+      } else { // draft / in progress
+        statusHtml = `<span class="badge badge-in-progress">In Progress</span>`;
+        actionsHtml = `
+          <button class="btn-sm-action btn-continue" onclick="showAssignmentForm('${a.id}')">📝 Continue</button>
+          <button class="btn-sm-action btn-submit" onclick="submitAssignment('${a.id}', '${user.email}')">📤 Submit</button>
+        `;
+      }
     } else if (isOverdue) {
-      statusHtml = `<span class="badge badge-inactive">OVERDUE</span>`;
+      statusHtml = `<span class="badge badge-inactive">Overdue</span>`;
+      actionsHtml = `<button class="btn-sm-action btn-submit-now" onclick="showAssignmentForm('${a.id}')">📤 Submit Now</button>`;
     } else {
-      statusHtml = `<span class="badge" style="background:#edf2f7; color:#4a5568">NOT STARTED</span>`;
+      statusHtml = `<span class="badge badge-not-started">Not Started</span>`;
+      actionsHtml = `
+        <button class="btn-sm-action btn-start" onclick="showAssignmentForm('${a.id}')">▶ Start</button>
+        <button class="btn-sm-action btn-instructions" onclick="alert('Instructions: ...')">ℹ Instructions</button>
+      `;
     }
 
     const row = document.createElement('tr');
     row.innerHTML = `
       <td>
-        <div style="font-weight:600">${escapeHtml(a.title)}</div>
-        <div class="small">${escapeHtml(a.description || '').substring(0, 50)}...</div>
+        <div class="assignment-title-cell">
+          <img src="https://cdn-icons-png.flaticon.com/512/3522/3522602.png" class="assignment-icon" alt="Assignment">
+          <div>
+            <div class="assignment-title">${escapeHtml(a.title)}</div>
+            <div class="assignment-subtitle">${escapeHtml(a.description || '').substring(0, 50)}...</div>
+          </div>
+        </div>
       </td>
       <td>${escapeHtml(course?.title || 'Unknown')}</td>
       <td>
-        <div class="${isOverdue ? 'danger-text' : ''}">${dueDate.toLocaleDateString()}</div>
+        <div class="${isOverdue ? 'danger-text' : ''}">${dueDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
         ${isOverdue ? '<div class="small danger-text">(Overdue)</div>' : ''}
       </td>
       <td>${statusHtml}</td>
-      <td>${submission?.grade !== undefined && submission?.grade !== null ? `<span style="color:var(--ok); font-weight:700">${submission.grade}%</span>` : '-'}</td>
-      <td>
-        ${!submission ? 
-          `<button class="button ${isOverdue ? 'danger-btn' : ''}" onclick="showAssignmentForm('${a.id}')" style="padding:6px 12px; font-size:12px">${isOverdue ? 'Submit Now' : 'Start'}</button>` : 
-          (submission.status !== 'graded' ? 
-            `<button class="button secondary" onclick="showAssignmentForm('${a.id}')" style="padding:6px 12px; font-size:12px">Edit</button>` : 
-            `<button class="button" onclick="viewFeedback('${a.id}')" style="padding:6px 12px; font-size:12px; background:var(--ok)">Feedback</button>`)
-        }
-      </td>
+      <td>${gradeHtml}</td>
+      <td><div class="actions-cell">${actionsHtml}</div></td>
     `;
     tbody.appendChild(row);
   });
@@ -571,6 +592,14 @@ function getQuizAnswers() {
     }
   });
   return answers;
+}
+
+function getLetterGrade(score) {
+  if (score >= 90) return 'A';
+  if (score >= 80) return 'B';
+  if (score >= 70) return 'C';
+  if (score >= 60) return 'D';
+  return 'F';
 }
 
 async function submitQuiz() {
