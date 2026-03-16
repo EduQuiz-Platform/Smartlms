@@ -1,15 +1,15 @@
 :root {
-  --bg: #f5f7fa;
+  --bg: #f7fafc;
   --card: #fff;
-  --text: #2d3748;
-  --muted: #718096;
-  --border: #e2e8f0;
-  --gradA: #667eea;
-  --gradB: #764ba2;
-  --purple: #667eea;
-  --danger: #f56565;
-  --ok: #10b981;
-  --warn: #f59e0b;
+  --text: #2d3436;
+  --muted: #636e72;
+  --border: #dfe6e9;
+  --gradA: #6c5ce7;
+  --gradB: #a29bfe;
+  --purple: #6c5ce7;
+  --danger: #ff7675;
+  --ok: #00b894;
+  --warn: #fdcb6e;
 }
 
 * { box-sizing: border-box; }
@@ -502,10 +502,10 @@ tbody td {
   font-weight: 700;
   text-transform: uppercase;
 }
-.badge-active { background: #c6f6d5; color: #22543d; }
-.badge-inactive { background: #fed7d7; color: #822727; }
-.badge-flagged { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
-.badge-locked { background: #edf2f7; color: #2d3748; }
+.badge-active { background: #dff9fb; color: #00b894; font-weight: 800; }
+.badge-inactive { background: #fab1a0; color: #d63031; font-weight: 800; opacity: 0.8; }
+.badge-flagged { background: #fab1a0; color: #d63031; font-weight: 800; opacity: 0.8; }
+.badge-locked { background: #dfe6e9; color: #2d3436; font-weight: 800; }
 
 .action-row {
   display: flex;
@@ -524,13 +524,13 @@ tbody td {
   min-width: 100px;
   text-align: center;
 }
-.btn-edit { background: #667eea; color: #fff; }
-.btn-activate { background: #e2e8f0; color: #2d3748; }
-.btn-delete { background: #f56565; color: #fff; }
-.btn-lock { background: #edf2f7; color: #4a5568; }
-.btn-flag { background: #f87171; color: #fff; }
-.btn-unflag { background: #667eea; color: #fff; }
-.btn-unlock { background: #667eea; color: #fff; }
+.btn-edit { background: #6c5ce7; color: #fff; }
+.btn-activate { background: #dfe6e9; color: #2d3436; font-weight: 700; }
+.btn-delete { background: #ff7675; color: #fff; }
+.btn-lock { background: #dfe6e9; color: #2d3436; font-weight: 700; }
+.btn-flag { background: #ff7675; color: #fff; }
+.btn-unflag { background: #6c5ce7; color: #fff; }
+.btn-unlock { background: #6c5ce7; color: #fff; }
 
 .danger-text { color: var(--danger); font-weight: 600; }
 .danger-btn { background: var(--danger) !important; }
@@ -538,17 +538,17 @@ tbody td {
 .badge-lock { background: #e2e8f0; color: #4a5568; }
 
 .aside {
-  background: #00b894; /* Green from screenshot */
+  background: #6c5ce7; /* Purple from screenshot */
 }
 
 .dashboard-header {
-  background: #fff; /* Header in screenshot is white */
-  color: var(--text);
+  background: #6c5ce7; /* Header in screenshot is purple */
+  color: white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.dashboard-header .header-title { color: #2d3436; }
-.dashboard-header .sidebar-toggle { color: #2d3436; }
+.dashboard-header .header-title { color: white; }
+.dashboard-header .sidebar-toggle { color: white; }
 .header-stats { background: #f1f2f6; color: #2d3436; border: 1px solid #dfe6e9; }
 
 .controls-row {
@@ -566,7 +566,34 @@ tbody td {
   margin-bottom: 0;
 }
 .export-btn {
-  background: #edf2f7;
-  color: #2d3748;
+  background: #dfe6e9;
+  color: #2d3436;
   margin-bottom: 0;
+  font-weight: 700;
+}
+
+.logout-button-header {
+  background: white;
+  color: #2d3436;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-add-user {
+  background: #6c5ce7;
+  padding: 10px 24px;
+}
+
+.eye-icon {
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.password-mask {
+  font-family: monospace;
 }

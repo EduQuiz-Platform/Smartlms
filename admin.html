@@ -14,12 +14,15 @@
 <body class="dashboard-body">
 <aside class="aside">
   <div class="brand">
-    <div class="logo">📚</div>
+    <div class="logo">⚙️</div>
     <span>SmartLMS Admin</span>
   </div>
   <nav class="nav-side" id="adminNav">
     <button class="active" data-page="dashboard">📊 Dashboard</button>
-    <button data-page="resets">🔄 Password Resets</button>
+    <button data-page="resets" style="display: flex; justify-content: space-between; align-items: center;">
+      <span>🔄 Password Resets</span>
+      <span style="opacity: 0.5;">▬</span>
+    </button>
     <button data-page="users">👥 Users</button>
     <button data-page="analytics">📈 Analytics</button>
     <button data-page="maintenance">🛡️ System & Admin Control</button>
@@ -36,6 +39,7 @@
       <div class="header-title">Admin Dashboard</div>
     </div>
     <div class="header-actions">
+      <button id="headerLogoutBtn" class="logout-button-header">Logout</button>
       <div id="notifBell">🔔</div>
       <div id="unreadCount" style="display:none">0</div>
       <div id="notifList"></div>

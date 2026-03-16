@@ -50,9 +50,8 @@ async function renderUsers() {
   allUsers = await SupabaseDB.getUsers();
   const content = document.getElementById('pageContent');
   content.innerHTML = `
-    <section>
-      <h3>User Accounts</h3>
-      <div class="controls-row">
+    <section style="background:transparent; box-shadow:none; padding:0">
+      <div class="controls-row" style="margin-bottom:20px">
         <input type="text" id="userSearch" class="search-input" placeholder="Search by name or email" oninput="filterUsers()">
         <select id="roleFilter" class="filter-select" onchange="filterUsers()">
           <option value="all">All Roles</option>
@@ -62,14 +61,14 @@ async function renderUsers() {
         </select>
         <select id="statusFilter" class="filter-select" onchange="filterUsers()">
           <option value="all">All Statuses</option>
-          <option value="active">Active</option>
-          <option value="inactive">Inactive</option>
-          <option value="flagged">Flagged</option>
           <option value="locked">Locked</option>
+          <option value="flagged">Flagged</option>
+          <option value="active">Active</option>
         </select>
         <button class="button export-btn" onclick="exportUsersCSV()">Export Users CSV</button>
       </div>
-      <button class="button" onclick="showCreateUserForm()" style="margin-bottom:20px">Add User</button>
+
+      <button class="button btn-add-user" onclick="showCreateUserForm()" style="margin-bottom:20px">Add User</button>
       
       <div id="usersList"></div>
     </section>
@@ -108,11 +107,11 @@ function displayUsers(users) {
   list.innerHTML = users.map(user => {
     const isLocked = isAccountLocked(user);
     const statusBadges = [];
-    if (!user.active) statusBadges.push('<span class="badge badge-inactive">Inactive</span>');
-    else statusBadges.push('<span class="badge badge-active">Active</span>');
+    if (!user.active) statusBadges.push('<span class="badge badge-inactive">INACTIVE</span>');
+    else statusBadges.push('<span class="badge badge-active">ACTIVE</span>');
     
-    if (user.flagged) statusBadges.push('<span class="badge badge-flagged">Flagged</span>');
-    if (isLocked) statusBadges.push('<span class="badge badge-locked">Locked</span>');
+    if (user.flagged) statusBadges.push('<span class="badge badge-flagged">FLAGGED</span>');
+    if (isLocked) statusBadges.push('<span class="badge badge-locked">LOCKED</span>');
 
     return `
       <div class="user-card">
@@ -124,6 +123,7 @@ function displayUsers(users) {
         </div>
         <div class="user-meta">
           Phone: ${escapeHtml(user.phone || 'N/A')} | 
+          Password: <span class="password-mask">••••••••</span> <span class="eye-icon" onclick="togglePasswordVisibility(this)">👁️</span><br>
           Failed Attempts: ${user.failed_attempts || 0} | 
           Lockouts: ${user.lockouts || 0} | 
           Joined: ${user.created_at ? new Date(user.created_at).toLocaleDateString() : 'N/A'}
@@ -144,6 +144,10 @@ function displayUsers(users) {
       </div>
     `;
   }).join('');
+}
+
+function togglePasswordVisibility(el) {
+  alert("For security reasons, passwords are encrypted and cannot be viewed in plain text. Use 'Edit' to change a user's password.");
 }
 async function renderResets() {
   const users = await SupabaseDB.getUsers();
@@ -431,4 +435,7 @@ async function broadcastNotif() {
   else alert('Broadcast sent to ' + (data.count || 0) + ' users');
 }
 
-document.getElementById('logoutBtn').addEventListener('click', async () => { await SessionManager.clearCurrentUser(); window.location.href = 'index.html'; });
+const logoutHandler = async () => { await SessionManager.clearCurrentUser(); window.location.href = 'index.html'; };
+document.getElementById('logoutBtn').addEventListener('click', logoutHandler);
+const headerLogoutBtn = document.getElementById('headerLogoutBtn');
+if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', logoutHandler);
